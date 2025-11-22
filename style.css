@@ -75,6 +75,10 @@ input[type="text"], input[type="email"], input[type="number"] {
     font-size: 16px;
     box-sizing: border-box;
 }
+input.input-error {
+    border: 2px solid var(--error);
+    background-color: #fadbd8;
+}
 button {
     background-color: var(--primary);
     color: white;
