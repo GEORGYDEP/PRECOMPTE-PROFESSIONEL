@@ -119,8 +119,9 @@ function checkStep1() {
         return;
     }
 
-    // ONSS = 13.07%
-    const correctOnss = round2(gross * 0.1307);
+    // ONSS = 13.07% (+ facteur 1.08 pour les ouvriers)
+    const isWorker = gameState.scenario.role.toLowerCase().includes('ouvrier');
+    const correctOnss = isWorker ? round2(gross * 0.1307 * 1.08) : round2(gross * 0.1307);
     const correctMonthlyTaxable = round2(gross - correctOnss);
     // Annuel = Mensuel imposable * 12
     const correctAnnualGross = round2(correctMonthlyTaxable * 12);
@@ -334,7 +335,8 @@ function fillFinalReport() {
     
     const r = gameState.results;
     const gross = gameState.scenario.gross;
-    const onss = round2(gross * 0.1307);
+    const isWorker = gameState.scenario.role.toLowerCase().includes('ouvrier');
+    const onss = isWorker ? round2(gross * 0.1307 * 1.08) : round2(gross * 0.1307);
     const monthlyTax = round2(gross - onss);
 
     // Formatage affichage
