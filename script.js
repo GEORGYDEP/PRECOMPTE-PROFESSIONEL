@@ -12,6 +12,16 @@ function round2(num) {
     return Math.round((num + Number.EPSILON) * 100) / 100;
 }
 
+// Normalise une entrée utilisateur en nombre (accepte virgule et point)
+function parseUserFloat(value) {
+    if (typeof value === 'number') return value;
+    if (!value) return NaN;
+
+    // Supprime les espaces et remplace la virgule par un point
+    const normalized = value.toString().trim().replace(/\s/g, '').replace(',', '.');
+    return parseFloat(normalized);
+}
+
 function showScreen(screenId) {
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
     document.getElementById(screenId).classList.add('active');
@@ -96,9 +106,9 @@ function checkStep1() {
     inputMonthlyTaxable.classList.remove('input-error');
     inputAnnualGross.classList.remove('input-error');
 
-    const userOnss = parseFloat(inputOnss.value);
-    const userMonthlyTaxable = parseFloat(inputMonthlyTaxable.value);
-    const userAnnualGross = parseFloat(inputAnnualGross.value);
+    const userOnss = parseUserFloat(inputOnss.value);
+    const userMonthlyTaxable = parseUserFloat(inputMonthlyTaxable.value);
+    const userAnnualGross = parseUserFloat(inputAnnualGross.value);
 
     // Vérifier si tous les champs sont remplis
     if (isNaN(userOnss) || isNaN(userMonthlyTaxable) || isNaN(userAnnualGross)) {
@@ -167,8 +177,8 @@ function checkStep2() {
     inputExpenses.classList.remove('input-error');
     inputNetTaxable.classList.remove('input-error');
 
-    const userExpenses = parseFloat(inputExpenses.value);
-    const userNetTaxable = parseFloat(inputNetTaxable.value);
+    const userExpenses = parseUserFloat(inputExpenses.value);
+    const userNetTaxable = parseUserFloat(inputNetTaxable.value);
 
     // Vérifier si tous les champs sont remplis
     if (isNaN(userExpenses) || isNaN(userNetTaxable)) {
@@ -231,7 +241,7 @@ function checkStep3() {
     // Retirer toutes les classes d'erreur précédentes
     inputBaseTax.classList.remove('input-error');
 
-    const userBaseTax = parseFloat(inputBaseTax.value);
+    const userBaseTax = parseUserFloat(inputBaseTax.value);
 
     // Vérifier si le champ est rempli
     if (isNaN(userBaseTax)) {
@@ -276,8 +286,8 @@ function checkStep4() {
     inputAnnualTax.classList.remove('input-error');
     inputFinalPrp.classList.remove('input-error');
 
-    const userAnnualTax = parseFloat(inputAnnualTax.value);
-    const userFinalPrp = parseFloat(inputFinalPrp.value);
+    const userAnnualTax = parseUserFloat(inputAnnualTax.value);
+    const userFinalPrp = parseUserFloat(inputFinalPrp.value);
 
     // Vérifier si tous les champs sont remplis
     if (isNaN(userAnnualTax) || isNaN(userFinalPrp)) {
